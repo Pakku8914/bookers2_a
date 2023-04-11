@@ -1,0 +1,32 @@
+<h1>
+	<%= @user.name %>さんとのチャット
+</h1>
+
+<div class="container">
+	<div class="row">
+	    <div class="col-md-12">
+			<h3>New Message</h3>
+			<%= form_with model: @new_message, url: user_dm_index_path(@user), local: true do |form| %>
+			    <div class="form-group">
+                    <%= form.text_field :message %>
+					<%= form.submit "送信" %>
+                </div>
+			<% end %>
+		</div>
+	</div>
+	<% @all_messages.each do |message| %>
+        <div class="row">
+			<div class="col-sm-12 text-left">
+				<% if message.sender_id == current_user.id %>
+				    <p class="text-left">
+                        <%= message.message %>
+                    </p>
+				<% else %>
+                    <p class="text-right">
+                        <%= message.message %>
+                    </p>
+				<% end %>
+			</div>
+	    </div>
+	<% end %>
+</div>

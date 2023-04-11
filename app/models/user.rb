@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :books
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  # DM機能の設定
+  has_many :sent_dms, class_name: "Dm", foreign_key: "sender_id", dependent: :destroy
+  has_many :received_dms, class_name: "Dm", foreign_key: "receiver_id", dependent: :destroy
 
 
   # class_name: どのテーブルを参照するのか設定
