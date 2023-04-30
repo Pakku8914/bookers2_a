@@ -5,6 +5,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+    @book.view_count.update(count: @book.view_count.count + 1)
   end
 
   def index
