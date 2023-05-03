@@ -9,6 +9,56 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+
+      <% if current_user == @user %>
+        <div>
+          <h2>投稿数の前日比・前週比</h2>
+          <table class='table'>
+            <tr>
+              <th>今日の投稿数</th>
+              <th>前日の投稿数</th>
+              <th>前日比</th>
+            </tr>
+            <tr>
+              <td>
+                <%= @user.create_books_today %>
+              </td>
+              <td>
+                <%= @user.create_books_yesterday %>
+              </td>
+              <td>
+                <% unless @user.create_books_yesterday == 0 %>
+                  <%= @user.create_books_today / @user.create_books_yesterday * 100 %>%
+                <% else %>
+                  昨日の投稿はありませんでした
+                <% end %>
+              </td>
+            </tr>
+          </table>
+          <table class='table'>
+            <tr>
+              <th>今週の投稿数</th>
+              <th>前週の投稿数</th>
+              <th>前週比</th>
+            </tr>
+            <tr>
+              <td>
+                <%= @user.create_books_thisweek %>
+              </td>
+              <td>
+                <%= @user.create_books_lastweek %>
+              </td>
+              <td>
+                <% unless @user.create_books_lastweek == 0 %>
+                  <%= @user.create_books_thisweek / @user.create_books_lastweek * 100%>%
+                <% else %>
+                  先週の投稿はありませんでした
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

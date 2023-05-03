@@ -57,4 +57,20 @@ class User < ApplicationRecord
     end
     self.profile_image.variant(resize_to_fill: [weight,height]).processed
   end
+
+  def create_books_today
+    self.books.where(created_at: Time.now.all_day).count.to_i
+  end
+
+  def create_books_yesterday
+    self.books.where(created_at: Time.now.yesterday.all_day).count.to_i
+  end
+
+  def create_books_thisweek
+    self.books.where(created_at: (1.week.ago+1.day).beginning_of_day..Time.now).count.to_i
+  end
+
+  def create_books_lastweek
+    self.books.where(created_at: (2.week.ago+1.day).beginning_of_day..1.week.ago.end_of_day).count.to_i
+  end
 end
