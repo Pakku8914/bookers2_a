@@ -35,6 +35,7 @@
               </td>
             </tr>
           </table>
+
           <table class='table'>
             <tr>
               <th>今週の投稿数</th>
@@ -57,8 +58,62 @@
               </td>
             </tr>
           </table>
+
+          <div>
+            <h2>７日間分の投稿数</h2>
+            <table>
+              <tr>
+                <th>6日前</th>
+                <th>5日前</th>
+                <th>4日前</th>
+                <th>3日前</th>
+                <th>2日前</th>
+                <th>1日前</th>
+                <th>今日</th>
+              </tr>
+              <tr>
+                <% @user.number_of_posts_per_week.each do |post_num| %>
+                  <td>
+                    <%= post_num %>
+                  </td>
+                <% end %>
+              </tr>
+            </table>
+          </div>
         </div>
       <% end %>
+      <%# グラフの記述位置を設定 %>
+      <div>
+        <canvas id="mychart"></canvas>
+      </div>
+      <%# Chart.jsをCDNから含める %>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </div>
   </div>
 </div>
+
+<script>
+  var ctx = document.getElementById('mychart');
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
+        datasets: [{
+            label: '1週間の投稿数',
+            data: <%= @user.number_of_posts_per_week %>,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                min: 0,
+                max: 10,
+                ticks: {
+                  stepSize: 1
+                }
+            }
+        }
+    }
+  });
+</script>

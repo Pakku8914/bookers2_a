@@ -10,9 +10,9 @@ class User < ApplicationRecord
 
 
   # class_name: どのテーブルを参照するのか設定
-  #　foreign_key: 参照する外部キー(カラム)を指定
+  # foreign_key: 参照する外部キー(カラム)を指定
   # through: 経由するテーブル
-  # source: 参照するカラム
+  # source: 参照するカラム 
 
   # フォローされている人
   # Relationshipモデルに対して、followed_idを見てreverse_of_relationshipsという名前でアソシエーション
@@ -67,10 +67,25 @@ class User < ApplicationRecord
   end
 
   def create_books_thisweek
-    self.books.where(created_at: (1.week.ago+1.day).beginning_of_day..Time.now).count.to_i
+    self.books.where(created_at: (Time.now - 6.day).beginning_of_day..Time.now).count.to_i
   end
 
   def create_books_lastweek
-    self.books.where(created_at: (2.week.ago+1.day).beginning_of_day..1.week.ago.end_of_day).count.to_i
+    self.books.where(created_at: 2.week.ago.beginning_of_day..(Time.now - 7.day).end_of_day).count.to_i
+  end
+
+  def number_of_posts_per_week
+    # 一週間分のデータ
+    @count_week_post = [0, 0, 0, 0, 0, 0, 0]
+    @books = self.books
+    range = 0..6
+    range.each do |num|
+      if num == 0
+        @count_week_post[0] = @books.where(created_at: Time.now.all_day).count.to_i
+      else
+        @count_week_post[num] = @books.where(created_at: (num).day.ago.all_day).count.to_i
+      end
+    end
+    return @count_week_post.reverse
   end
 end
