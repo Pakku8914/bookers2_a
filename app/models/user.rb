@@ -87,5 +87,6 @@ class User < ApplicationRecord
       end
     end
     return @count_week_post.reverse
+    
   end
 end
