@@ -84,10 +84,20 @@
       <% end %>
       <%# グラフの記述位置を設定 %>
       <div>
-        <canvas id="mychart"></canvas>
+        <canvas id="mychart" data-turbolinks='false'></canvas>
       </div>
       <%# Chart.jsをCDNから含める %>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <div>
+        <%= form_with local: false, url: users_posts_num_path, method: :get do |form| %>
+          <%= form.date_field :day %>
+          <%= form.submit "検索" %>
+        <% end %>
+      </div>
+      <div id='posts_amount'>
+
+      </div>
     </div>
   </div>
 </div>
