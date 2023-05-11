@@ -1,0 +1,24 @@
+<table class='table table-hover table-inverse'>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>introduction</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% members.each do |member| %>
+        <tr>
+            <td>
+            <%= image_tag member.get_profile_image(80,80) %>
+            </td>
+            <td><%= member.name %></td>
+            <td><%= member.introduction %></td>
+            <td>
+                <%= link_to "Edit", class: "btn btn-success" %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
