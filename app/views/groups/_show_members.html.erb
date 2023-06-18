@@ -28,6 +28,11 @@
                       class: "btn btn-success" %>
         <% end %>
       </td>
-
+      <td>
+        <% if group.owner_id == current_user.id %>
+          <%= link_to 'Notice an Event', new_user_group_group_mails_path(current_user.id, group.id), class: "btn
+          btn-info" %>
+        <% end %>
+      </td>
     </tbody>
 </table>

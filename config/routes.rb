@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :groups, only: [:index, :new, :create, :edit, :update, :show] do
       post "group_users" => "group_user#create", as: "add"
       delete "group_users/:id" => "group_user#destroy", as: "withdraw"
+      resource :group_mails, only: [:new, :create]
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
