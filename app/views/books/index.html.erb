@@ -1,3 +1,7 @@
+<%= form_with url: tags_path, method: :get do |f| %>
+  <%= f.text_field :tag %>
+  <%= f.submit "タグ検索" %>
+<% end %>
 <div class='container px-5 px-sm-0'>
   <%= render 'layouts/errors', obj: @book %>
   <div class='row'>

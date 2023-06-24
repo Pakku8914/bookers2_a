@@ -1,0 +1,6 @@
+<%= form_with url: tags_path, method: :get do |f| %>
+  <%= f.text_field :tag %>
+  <%= f.submit "タグ検索" %>
+<% end %>
+
+<%= render "books/index", books: @books %>
